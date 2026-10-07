@@ -1,200 +1,190 @@
-# MATLAB Projekt
+# MATLAB Projekt – Numerické výpočty a simulácie
 
-Tento repozitár obsahuje MATLAB kód a skripty pre numerické výpočty, analýzu dát a vývoj algoritmov.
+Vitaj v repozitári, ktorý obsahuje jednoduché MATLAB skripty pre numerické metódy, simulácie a vizualizáciu výsledkov.
 
-## Popis projektu
+Tento projekt je dobrý na učenie sa základov:
 
-Projekt je zorganizovaný pre MATLAB-based vývoj s možnosťou:
-
-- rýchlym prototypovaním algoritmov
-- spracovaním numerických dát
-- vizualizáciou výsledkov
-- automatizáciou analýz a výpočtov
-
-## Štruktúra repozitára
-
-```
-.
-├── README.md                 % Technická dokumentácia
-├── src/                      % Zdrojový kód a funkcie
-│   ├── functions/           % Vlastné MATLAB funkcie
-│   └── modules/             % MATLAB moduly a triedy
-├── scripts/                 % Spúšťacie skripty a príklady
-├── data/                    % Vstupné dáta
-│   ├── input/              % Vstupné dátové súbory
-│   └── output/             % Výstupné dáta po spracovaní
-├── results/                % Výsledky, grafy a tabuľky
-├── tests/                  % Jednotkové testy
-├── docs/                   % Dokumentácia
-│   ├── technická_spec.md   % Technické špecifikácie
-│   └── user_guide.md       % Používateľská príručka
-└── config/                 % Konfiguračné súbory
-```
-
-## Požiadavky
-
-- **MATLAB** R2020b alebo novšia (odporúčané R2023b+)
-- **Operačný systém:** Windows, macOS, Linux
-- **Potrebné toolboxy:**
-  - Signal Processing Toolbox
-  - Statistics and Machine Learning Toolbox
-  - Optimization Toolbox
-  - (podľa konkrétneho projektu)
-
-## Inštalácia a konfigurácia
-
-### 1. Klonovaní repozitára
-
-```bash
-git clone https://github.com/savrdadusan/matlab.git
-cd matlab
-```
-
-### 2. Pridanie do MATLAB cesty
-
-V MATLAB príkazovom okne:
-
-```matlab
-addpath(genpath(pwd));
-savepath;
-```
-
-### 3. Overenie inštalácie
-
-```matlab
-% Kontrola dostupných funkcií
-help src/functions/
-```
-
-## Typický pracovný postup
-
-1. **Príprava dát:** Umiestnite vstupné dáta do `data/input/`
-2. **Implementácia:** Vytvorte alebo upravte kód v `src/`
-3. **Testovanie:** Spustite testy z `tests/`
-4. **Spustenie:** Vykonajte skript z `scripts/`
-5. **Analýza výsledkov:** Výsledky sa nachádzajú v `results/`
-
-## Príklad použitia
-
-```matlab
-% Načítanie dát
-data = readmatrix('data/input/sample_data.csv');
-
-% Spustenie analýzy
-results = analyzeData(data);
-
-% Vizualizácia
-figure;
-plot(results);
-title('Výsledky analýzy');
-xlabel('Čas [s]');
-ylabel('Amplitúda [V]');
-grid on;
-
-% Uloženie výsledkov
-saveas(gcf, 'results/analysis_plot.png');
-```
-
-## API a hlavné funkcie
-
-### `src/functions/analyzeData.m`
-```matlab
-results = analyzeData(inputData, varargin)
-% Analýza vstupných dát
-% 
-% Vstupy:
-%   inputData   - matica rozmerov (N x M)
-%   varargin    - voliteľné parametre
-%
-% Výstupy:
-%   results     - štruktúra s výsledkami
-```
-
-### `src/functions/processSignal.m`
-```matlab
-signal = processSignal(rawSignal, fs, varargin)
-% Spracovanie signálu
-%
-% Vstupy:
-%   rawSignal   - vstupný signál
-%   fs          - vzorkovacia frekvencia [Hz]
-%
-% Výstupy:
-%   signal      - spracovaný signál
-```
-
-## Testovanie
-
-Spustite jednotkové testy:
-
-```matlab
-% Spustenie všetkých testov
-runtests('tests/');
-
-% Spustenie konkrétneho testu
-runtests('tests/test_analyzeData.m');
-```
-
-## Nastavenie a konfigurácia
-
-Konfigurálne parametre sú uložené v `config/settings.m`:
-
-```matlab
-% Príklad nastavenia
-config.sampleRate = 1000;      % vzorkovacia frekvencia [Hz]
-config.filterOrder = 5;         % rád filtra
-config.plotFigures = true;      % zobrazovanie grafov
-```
-
-## Výkonnosť a optimalizácia
-
-- Použite **vectorizáciu** namiesto slučiek `for`
-- Pre veľké dáta používajte **GPU** výpočty (s `gpuArray`)
-- Profilovaní kódu pomocou `profile viewer`
-
-Príklad:
-
-```matlab
-profile on;
-analyzeData(largeData);
-profile viewer;
-```
-
-## Známe problémy a riešenia
-
-| Problém | Riešenie |
-|---------|---------|
-| Nedostaok pamäte pri veľkých dátach | Spracovávajte dáta po častiach |
-| Pomalá konvergencia | Upravte toleranciu v `config/settings.m` |
-| Chyby v grafe | Skontrolujte dátové typy vstupov |
-
-## Referencie a dokumentácia
-
-- [MathWorks MATLAB Documentation](https://www.mathworks.com/help/matlab/)
-- [Signal Processing Guide](https://www.mathworks.com/help/signal/)
-- Pozri `docs/technická_spec.md` pre podrobnosti implementácie
-
-## Licencia
-
-Projekt zatiaľ nemá špecifikovanú licenciu. Pri verejnom zdieľaní zvážte pridanie vhodnej open-source licencie (MIT, GPLv3, Apache 2.0).
-
-## Kontakt a príspevky
-
-- **Autor:** Dušan Šavrda
-- **Email:** 82323669+savrdadusan@users.noreply.github.com
-
-### Ako prispieť
-
-1. Vytvorte feature branch: `git checkout -b feature/nova-funkcionalita`
-2. Implementujte zmeny s testami
-3. Commitnite zmeny: `git commit -m "Popis zmien"`
-4. Pushните na branch: `git push origin feature/nova-funkcionalita`
-5. Otvorte Pull Request
-
-## Historia zmien
-
-Pozri `CHANGELOG.md` pre detaily všetkých verzií.
+- MATLAB syntaxe
+- numerických výpočtov
+- Monte Carlo metódy
+- grafického zobrazenia výsledkov
+- práce so vstupnými a výstupnými hodnotami
 
 ---
 
-**Posledná aktualizácia:** Október 2026
+## 📁 Obsah repozitára
+
+```text
+matlab/
+├── README.md                 # Dokumentácia projektu
+├── vypocet_pi.m              # Výpočet čísla π pomocou Monte Carlo metódy
+├── urcity_integral.m         # Výpočet určitého integrálu pomocou simulácie
+└── ...
+```
+
+---
+
+## 1) README.md
+
+### Popis
+Tento súbor slúži ako hlavná dokumentácia projektu.
+
+### Na čo sa používa
+- vysvetľuje, čo projekt robí
+- opisuje jednotlivé skripty
+- ukazuje, ako projekt spúšťať
+- pomáha pochopiť účel celého repozitára
+
+### Ako funguje
+README je dokumentácia, ktorá odkazuje na dôležité informácie o projekte. V praxi slúži ako „návod pre používateľa“ a „mapa projektu“.
+
+> Poznámka: V malých projektoch je README často najdôležitejší súbor, pretože vysvetľuje celý projekt bez otvorenia kódu.
+
+---
+
+## 2) vypocet_pi.m
+
+### Popis
+Skript počíta približnú hodnotu čísla π pomocou metódy Monte Carlo.
+
+### Na čo sa používa
+- štúdium náhodných simulácií
+- numerický odhad π
+- demonstrácia pravdepodobnostného výpočtu v MATLAB-e
+- vizualizácia bodov v rovine
+
+### Ako funguje
+1. Vytvorí sa náhodný bod s súradnicami `(x, y)` v intervale od 0 do 1.
+2. Skontroluje sa, či platí nerovnosť:
+
+```matlab
+x^2 + y^2 <= 1
+```
+
+3. Ak bod leží vo vnútri jednotkovej kružnice, počíta sa ako „trafený“.
+4. Počet trafených bodov sa porovná s celkovým počtom bodov.
+5. Hodnota π sa odhaduje podľa vzorca:
+
+```matlab
+pi = 4 * body_trafene / N
+```
+
+### Čo sa vykresľuje
+- 🔴 červené body = body vo vnútri kružnice
+- 🟢 zelené body = body mimo kružnice
+
+### Kľúčové premenné
+- `N` – počet náhodných bodov
+- `body_trafene` – počet bodov vo vnútri kružnice
+- `x`, `y` – náhodné súradnice bodu
+
+> Tip: Čím väčšie je `N`, tým presnejší je výsledok, ale výpočet trvá dlhšie.
+
+---
+
+## 3) urcity_integral.m
+
+### Popis
+Skript počíta určitý integrál funkcie:
+
+```matlab
+f(x) = 1 / (1 + x)
+```
+
+na intervale od 0 do 1.
+
+### Na čo sa používa
+- numerická integrácia
+- aproximácia plochy pod krivkou
+- simulácia metódy Monte Carlo v aplikácii na matematiku
+- vizualizácia integrálu graficky
+
+### Ako funguje
+1. Definuje sa funkcia `yy = 1 ./ (1 + xx)`, teda graf funkcie.
+2. Náhodne sa generujú body v obdĺžniku pod maximálnou hodnotou funkcie.
+3. Overuje sa, či bod leží pod krivkou funkcie.
+4. Z pomeru bodov pod krivkou a všetkých bodov sa odhadne plocha pod funkciou.
+5. Tento odhad sa porovná s presnou hodnotou:
+
+```matlab
+∫(0 do 1) 1/(1+x) dx = ln(2)
+```
+
+### Čo sa vykresľuje
+- 🔵 modrá krivka = funkcia `1/(1+x)`
+- 🔴 červené body = body pod krivkou
+- 🟢 zelené body = body nad krivkou
+
+### Kľúčové premenné
+- `N` – počet simulovaných bodov
+- `xx` – x-ové hodnoty funkcie
+- `yy` – y-ové hodnoty funkcie
+- `maximum` – maximálna hodnota funkcie na intervale
+- `integral` – odhadnutá hodnota integrálu
+
+> Poznámka: Teoretická hodnota je `log(2) ≈ 0.6931`, takže skript porovnáva simulovaný výsledok s touto presnou hodnotou.
+
+---
+
+## 🧠 Čo sa v projekte učí
+
+Tento projekt je vhodný na pochopenie nasledujúcich pojmov:
+
+- náhodné generovanie dát
+- Monte Carlo metóda
+- numerická aproximácia π
+- numerická integrácia
+- grafické vykreslenie výsledkov v MATLAB-e
+- základný programátorský prístup k matematickým úlohám
+
+---
+
+## 🚀 Ako spustiť projekt v MATLAB-e
+
+Urobte nasledovné:
+
+1. Otvorte MATLAB
+2. Prejdite do priečinka projektu
+3. Spustite skript:
+
+```matlab
+vypocet_pi
+```
+
+alebo
+
+```matlab
+urcity_integral
+```
+
+Po spustení sa otvorí graf a zobrazia sa body a krivky.
+
+---
+
+## 📌 Zhrnutie funkcií projektu
+
+| Súbor | Funkcia | Použitie |
+|--------|---------|----------|
+| `README.md` | Dokumentácia | Popisuje projekt a jeho účel |
+| `vypocet_pi.m` | Výpočet π | Simulácia a náhodné body |
+| `urcity_integral.m` | Výpočet integrálu | Približný výpočet plochy pod krivkou |
+
+---
+
+## ✅ Dôležité poznámky
+
+> 💡 Tento projekt je jednoduchý, ale veľmi dobrý na pochopenie, ako sa numerické metódy používajú v praxi.
+
+> ⚠️ Všetky výpočty sú približné, pretože používajú náhodné generovanie bodov.
+
+> 🔍 Pre presnejšie výsledky je potrebné zvyšovať hodnotu `N`.
+
+---
+
+## Autor
+
+- Dušan Šavrda
+
+---
+
+Posledná aktualizácia: Október 2026
