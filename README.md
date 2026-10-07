@@ -1,78 +1,200 @@
-# MATLAB Project
+# MATLAB Projekt
 
-This repository contains MATLAB code and scripts for working with numerical computing, data analysis, and algorithm development.
+Tento repozitár obsahuje MATLAB kód a skripty pre numerické výpočty, analýzu dát a vývoj algoritmov.
 
-## Overview
+## Popis projektu
 
-The project is organized for MATLAB-based development, allowing you to:
+Projekt je zorganizovaný pre MATLAB-based vývoj s možnosťou:
 
-- prototype algorithms quickly
-- process numerical data
-- visualize results
-- automate repeated analysis tasks
+- rýchlym prototypovaním algoritmov
+- spracovaním numerických dát
+- vizualizáciou výsledkov
+- automatizáciou analýz a výpočtov
 
-## Repository structure
+## Štruktúra repozitára
 
-```text
+```
 .
-├── README.md
-├── src/
-├── data/
-├── scripts/
-├── results/
-└── docs/
+├── README.md                 % Technická dokumentácia
+├── src/                      % Zdrojový kód a funkcie
+│   ├── functions/           % Vlastné MATLAB funkcie
+│   └── modules/             % MATLAB moduly a triedy
+├── scripts/                 % Spúšťacie skripty a príklady
+├── data/                    % Vstupné dáta
+│   ├── input/              % Vstupné dátové súbory
+│   └── output/             % Výstupné dáta po spracovaní
+├── results/                % Výsledky, grafy a tabuľky
+├── tests/                  % Jednotkové testy
+├── docs/                   % Dokumentácia
+│   ├── technická_spec.md   % Technické špecifikácie
+│   └── user_guide.md       % Používateľská príručka
+└── config/                 % Konfiguračné súbory
 ```
 
-## Getting started
+## Požiadavky
 
-1. Open MATLAB.
-2. Navigate to the repository folder.
-3. Add the project directory to the MATLAB path if needed.
-4. Run the relevant script or function.
+- **MATLAB** R2020b alebo novšia (odporúčané R2023b+)
+- **Operačný systém:** Windows, macOS, Linux
+- **Potrebné toolboxy:**
+  - Signal Processing Toolbox
+  - Statistics and Machine Learning Toolbox
+  - Optimization Toolbox
+  - (podľa konkrétneho projektu)
 
-Example:
+## Inštalácia a konfigurácia
+
+### 1. Klonovaní repozitára
+
+```bash
+git clone https://github.com/savrdadusan/matlab.git
+cd matlab
+```
+
+### 2. Pridanie do MATLAB cesty
+
+V MATLAB príkazovom okne:
 
 ```matlab
 addpath(genpath(pwd));
-
-% Example usage
-result = myFunction(inputData);
-plot(result);
+savepath;
 ```
 
-## Typical workflow
+### 3. Overenie inštalácie
 
-- place input data in `data/`
-- implement calculations in `src/` or `scripts/`
-- save plots or output data in `results/`
-- document assumptions and formulas in `docs/`
+```matlab
+% Kontrola dostupných funkcií
+help src/functions/
+```
 
-## Requirements
+## Typický pracovný postup
 
-- MATLAB R2020b or newer (recommended)
-- Required toolboxes depending on the specific scripts
+1. **Príprava dát:** Umiestnite vstupné dáta do `data/input/`
+2. **Implementácia:** Vytvorte alebo upravte kód v `src/`
+3. **Testovanie:** Spustite testy z `tests/`
+4. **Spustenie:** Vykonajte skript z `scripts/`
+5. **Analýza výsledkov:** Výsledky sa nachádzajú v `results/`
 
-## Notes
+## Príklad použitia
 
-This README is a starting point. Update the sections below to match the actual project contents and usage.
+```matlab
+% Načítanie dát
+data = readmatrix('data/input/sample_data.csv');
 
-### Add project-specific details
+% Spustenie analýzy
+results = analyzeData(data);
 
-- purpose of the project
-- input/output formats
-- algorithm description
-- example commands
-- references or papers
+% Vizualizácia
+figure;
+plot(results);
+title('Výsledky analýzy');
+xlabel('Čas [s]');
+ylabel('Amplitúda [V]');
+grid on;
 
-## License
+% Uloženie výsledkov
+saveas(gcf, 'results/analysis_plot.png');
+```
 
-This project does not specify a license yet. If you plan to publish or share it publicly, consider adding an appropriate open-source license.
+## API a hlavné funkcie
 
-## Contributing
+### `src/functions/analyzeData.m`
+```matlab
+results = analyzeData(inputData, varargin)
+% Analýza vstupných dát
+% 
+% Vstupy:
+%   inputData   - matica rozmerov (N x M)
+%   varargin    - voliteľné parametre
+%
+% Výstupy:
+%   results     - štruktúra s výsledkami
+```
 
-If you want to contribute:
+### `src/functions/processSignal.m`
+```matlab
+signal = processSignal(rawSignal, fs, varargin)
+% Spracovanie signálu
+%
+% Vstupy:
+%   rawSignal   - vstupný signál
+%   fs          - vzorkovacia frekvencia [Hz]
+%
+% Výstupy:
+%   signal      - spracovaný signál
+```
 
-1. create a feature branch
-2. make your changes
-3. test them in MATLAB
-4. submit a pull request
+## Testovanie
+
+Spustite jednotkové testy:
+
+```matlab
+% Spustenie všetkých testov
+runtests('tests/');
+
+% Spustenie konkrétneho testu
+runtests('tests/test_analyzeData.m');
+```
+
+## Nastavenie a konfigurácia
+
+Konfigurálne parametre sú uložené v `config/settings.m`:
+
+```matlab
+% Príklad nastavenia
+config.sampleRate = 1000;      % vzorkovacia frekvencia [Hz]
+config.filterOrder = 5;         % rád filtra
+config.plotFigures = true;      % zobrazovanie grafov
+```
+
+## Výkonnosť a optimalizácia
+
+- Použite **vectorizáciu** namiesto slučiek `for`
+- Pre veľké dáta používajte **GPU** výpočty (s `gpuArray`)
+- Profilovaní kódu pomocou `profile viewer`
+
+Príklad:
+
+```matlab
+profile on;
+analyzeData(largeData);
+profile viewer;
+```
+
+## Známe problémy a riešenia
+
+| Problém | Riešenie |
+|---------|---------|
+| Nedostaok pamäte pri veľkých dátach | Spracovávajte dáta po častiach |
+| Pomalá konvergencia | Upravte toleranciu v `config/settings.m` |
+| Chyby v grafe | Skontrolujte dátové typy vstupov |
+
+## Referencie a dokumentácia
+
+- [MathWorks MATLAB Documentation](https://www.mathworks.com/help/matlab/)
+- [Signal Processing Guide](https://www.mathworks.com/help/signal/)
+- Pozri `docs/technická_spec.md` pre podrobnosti implementácie
+
+## Licencia
+
+Projekt zatiaľ nemá špecifikovanú licenciu. Pri verejnom zdieľaní zvážte pridanie vhodnej open-source licencie (MIT, GPLv3, Apache 2.0).
+
+## Kontakt a príspevky
+
+- **Autor:** Dušan Šavrda
+- **Email:** 82323669+savrdadusan@users.noreply.github.com
+
+### Ako prispieť
+
+1. Vytvorte feature branch: `git checkout -b feature/nova-funkcionalita`
+2. Implementujte zmeny s testami
+3. Commitnite zmeny: `git commit -m "Popis zmien"`
+4. Pushните na branch: `git push origin feature/nova-funkcionalita`
+5. Otvorte Pull Request
+
+## Historia zmien
+
+Pozri `CHANGELOG.md` pre detaily všetkých verzií.
+
+---
+
+**Posledná aktualizácia:** Október 2026
